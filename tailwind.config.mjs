@@ -13,6 +13,7 @@ export default {
         colorTheme1: "var(--colorTheme1)",
         colorTheme2: "var(--colorTheme2)",
         colorTheme3: "var(--colorTheme3)",
+        colorTheme4: "var(--colorTheme4)"
       },
     },
   },
