@@ -23,3 +23,19 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.classLinkReceita{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding: 2px;
+  min-height: 9rem;
+  width: 20%
+}
+
+.h1LinkReceita{
+  font-size: 1.25rem;
+}
