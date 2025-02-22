@@ -24,21 +24,3 @@ export async function POST(request){
     })
 
 }
-
-// {
-//     id: 40,
-//     nome: 'Quindim',
-//     categoria: 'Doce',
-//     ingredientes: [
-//         "Gemas 6 unidades",
-//         "Açúcar 1 xícara",
-//         "Coco ralado 100g",
-//         "Manteiga 1 colher de sopa"
-//     ],
-//     preparo: [
-//         "Misturar todos os ingredientes",
-//         "Despejar em forminhas untadas",
-//         "Assar em banho-maria a 180°C por 40 minutos",
-//         "Servir frio"
-//     ]
-// }

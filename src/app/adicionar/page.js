@@ -15,7 +15,11 @@ export default function Adicionar(){
     const [inputsPreparoAdicionais, setInputsPreparoAdicionais] = useState([])
 
     const [formReceita, setFormReceita] = useState()
-    
+    const [nomeReceita, setNomeReceita] = useState('')
+    const [categoriaReceita, setCategoriaReceita] = useState('')
+    const [ingredientesReceita, setIngredientesReceita] = useState([])
+    const [passosReceita, setPassosReceita] = useState([])
+    const [clickAdicionar, setClickAdicionar] = useState(false)
 
     function AdicionarInputIngrediente(){
         setAddInputsIngredientesAdicionais([...inputsIngredientesAdicionais, numeroInputIng + 1])
@@ -29,16 +33,33 @@ export default function Adicionar(){
 
     function SubmitForm(e){
         e.preventDefault()
+        setClickAdicionar(true)
+
         const form_Receita = {
-                nome: e.firstChild,
-                categoria: receita.categoria,
-                ingredientes: receita.ingredientes,
-                preparo: receita.preparo
+                name: nomeReceita,
+                categoria: categoriaReceita,
+                ingredientes: ingredientesReceita.filter((ingred)=> ingred !== ""),
+                preparo: passosReceita.filter((passo)=> passo !== "")
             
         }
-
         setFormReceita(form_Receita)
         setPostReceita(true)
+    }
+
+    const receitaNome=(nome)=>{
+        setNomeReceita(nome)
+    }
+
+    const categReceita=(categoria)=>{
+        setCategoriaReceita(categoria)
+    }
+
+    const ingredReceita=(ingred)=>{
+        setIngredientesReceita(prevState=>[...prevState, ingred])
+    }
+
+    const prepReceita=(passos)=>{
+        setPassosReceita(prevState=>[...prevState, passos])
     }
 
     useEffect(()=>{
@@ -63,29 +84,33 @@ export default function Adicionar(){
             <Link href={'/adicionar'} className="flex-auto text-center p-2 text-lg hover:text-colorTheme2 duration-300">Adicione sua receita</Link>
         </nav>
         <main className="w-5/6 bg-white h-auto text-colorTheme2 flex flex-wrap justify-center p-4">
-            <form className="w-1/2 border h-auto flex flex-col items-center space-y-4 p-2" onSubmit={SubmitForm}>
-                <Input type='text' text='Nome da receita:' placeholder='Digite o nome da receita' id='nomeReceita'/>
-                <Input type='text' text='Ingrediente 1:' placeholder='Ingrediente 1' id='ingred_1'/>
-                <Input type='text' text='Ingrediente 2:' placeholder='Ingrediente 2' id='ingred_2'/>
-                <Input type='text' text='Ingrediente 3:' placeholder='Ingrediente 3' id='ingred_3'/>
+            <form className="w-1/2 border h-auto flex flex-col items-center space-y-4 p-2">
+                <Input type='text' text='Nome da receita:' placeholder='Digite o nome da receita' id='nomeReceita' voltarDado={receitaNome}/>
+                <select id="opcoes" name="opcoes" onChange={(e)=>categReceita(e.target.value)}>
+                    <option value="Salgada">Salgada</option>
+                    <option value="Doce">Doce</option>
+                </select>
+                <Input type='text' text='Ingrediente 1:' placeholder='Ingrediente 1' id='ingred_1' voltarDado={ingredReceita} verificaEnvio={clickAdicionar}/>
+                <Input type='text' text='Ingrediente 2:' placeholder='Ingrediente 2' id='ingred_2' voltarDado={ingredReceita} verificaEnvio={clickAdicionar}/>
+                <Input type='text' text='Ingrediente 3:' placeholder='Ingrediente 3' id='ingred_3' voltarDado={ingredReceita} verificaEnvio={clickAdicionar}/>
                 {inputsIngredientesAdicionais.map((numero, index)=>(
-                    <Input type='text' text={`Ingrediente ${numero}:`} placeholder={`Ingrediente ${numero}`} id={`ingrid_${numero}`} key={numero}/>
+                    <Input type='text' text={`Ingrediente ${numero}:`} placeholder={`Ingrediente ${numero}`} id={`ingrid_${numero}`} key={numero} voltarDado={ingredReceita} verificaEnvio={clickAdicionar}/>
                 ))}
                 <div className="flex space-x-2 items-center cursor-pointer" onClick={AdicionarInputIngrediente}>
                         <FaPlus/> 
                         <span>Ingredientes</span>
                 </div>
-                <Input type='text' text='Preparo - Passo 1:' placeholder='Passo 1' id='passo_1'/>
-                <Input type='text' text='Preparo - Passo 2:' placeholder='Passo 2' id='passo_2'/>
-                <Input type='text' text='Preparo - Passo 3:' placeholder='Passo 3' id='passo_3'/>
+                <Input type='text' text='Preparo - Passo 1:' placeholder='Passo 1' id='passo_1' voltarDado={prepReceita} verificaEnvio={clickAdicionar}/>
+                <Input type='text' text='Preparo - Passo 2:' placeholder='Passo 2' id='passo_2' voltarDado={prepReceita} verificaEnvio={clickAdicionar}/>
+                <Input type='text' text='Preparo - Passo 3:' placeholder='Passo 3' id='passo_3' voltarDado={prepReceita} verificaEnvio={clickAdicionar}/>
                 {inputsPreparoAdicionais.map((numero, index)=>(
-                    <Input type='text' text={`Preparo - Passo ${numero}:`} placeholder={`Passo ${numero}`} id={`passo_${numero}`} key={numero}/>
+                    <Input type='text' text={`Preparo - Passo ${numero}:`} placeholder={`Passo ${numero}`} id={`passo_${numero}`} key={numero} voltarDado={prepReceita} verificaEnvio={clickAdicionar}/>
                 ))}
                 <div className="flex space-x-2 items-center cursor-pointer" onClick={AdicionarInputPreparo}>
                         <FaPlus/> 
                         <span>Passos</span>
                 </div>
-                <button type="submit" className="bg-colorTheme2 px-6 py-2 text-center text-white text-xl ">Adicionar</button>
+                <button className="bg-colorTheme2 px-6 py-2 text-center text-white text-xl " onClick={SubmitForm}>Adicionar</button>
             </form>
         </main>
     </div>
