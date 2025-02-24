@@ -2,6 +2,7 @@ import Link from "next/link";
 import { data } from "./receitas/data";
 
 import LinkReceita from "../../components/page/LinkReceita";
+import { FiSearch } from "react-icons/fi";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
             <Link href={'/doces'} className="flex-auto text-center p-2 text-lg hover:text-colorTheme2 duration-300">Doces</Link>
             <Link href={'/salgados'} className="flex-auto text-center p-2 text-lg hover:text-colorTheme2 duration-300">Salgados</Link>
             <Link href={'/adicionar'} className="flex-auto text-center p-2 text-lg hover:text-colorTheme2 duration-300">Adicione sua receita</Link>
+            <Link href={'/pesquisar'} className="flex-auto text-center p-2 text-2xl hover:text-colorTheme2 duration-300"><FiSearch/></Link>
         </nav>
         <main className="w-5/6 bg-white h-auto text-colorTheme2 flex flex-wrap justify-center p-4">
             {data.map((receita, i)=>(
