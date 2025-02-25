@@ -1,28 +1,34 @@
 'use client'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import { data } from '../receitas/data'
 
+import LinkReceita from '../../../components/page/LinkReceita'
 import { FiSearch } from 'react-icons/fi'
 
 export default function Pesquisar(){
-
     const router = useRouter()
     const pathname = usePathname()
     
     const [dadoBusca, setDadoBusca] = useState('')
+    const [resultadoBusca, setResultadoBusca] = useState([])
 
     const enviarPesquisa=(e)=>{
         if(e.key === 'Enter' || e.type === 'click'){
             const url = `${pathname}?nome=${encodeURIComponent(dadoBusca)}`
             router.push(url)
-            Pesquisar()
+            PesquisarReceita()
         }
     }
 
-    function Pesquisar(){
+    function PesquisarReceita(){
         // fazer o método para retornar os resultados e adicionar na página
+
+       const filteredRecipes = dadoBusca ? data.filter(receita=> receita.nome.includes(dadoBusca) ): data
+
+        setResultadoBusca(filteredRecipes)
+
     }
 
     return(
@@ -36,7 +42,7 @@ export default function Pesquisar(){
             <Link href={'/adicionar'} className="flex-auto text-center p-2 text-lg hover:text-colorTheme2 duration-300">Adicione sua receita</Link>
         
         </nav>
-        <main className="w-5/6 bg-white h-40 text-colorTheme2 flex flex-col items-center p-4">
+        <main className="w-5/6 bg-white h-auto text-colorTheme2 flex flex-col items-center p-4">
             <h1 className='text-lg'>Pesquise pela sua receita preferida!</h1>
             <div className='w-full flex justify-center mt-1 mb-5'>
                 <div className='flex bg-gray-100 items-center space-x-1 w-5/6 px-2 rounded-xl'>
@@ -48,6 +54,9 @@ export default function Pesquisar(){
                 <h1 className='text-colorTheme2 opacity-65'>Resultados</h1>
                 <div className='w-5/6 h-auto text-colorTheme2 flex flex-wrap justify-center p-4'>
                     {/* resultados da pesquisa da receita */}
+                    {resultadoBusca.map((receita)=>(
+                        <LinkReceita nome={receita.nome} id={receita.id} key={receita.id}/>
+                    ))}
                 </div>
             </div>
         </main>
