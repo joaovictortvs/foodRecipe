@@ -23,7 +23,7 @@ export default function Pesquisar(){
     }
 
     function PesquisarReceita(){
-        // fazer o método para retornar os resultados e adicionar na página
+        // Método para retornar a receita pesquisada
 
        const filteredRecipes = dadoBusca ? data.filter(receita=> receita.nome.includes(dadoBusca) ): data
 
@@ -46,7 +46,7 @@ export default function Pesquisar(){
             <h1 className='text-lg'>Pesquise pela sua receita preferida!</h1>
             <div className='w-full flex justify-center mt-1 mb-5'>
                 <div className='flex bg-gray-100 items-center space-x-1 w-5/6 px-2 rounded-xl'>
-                    <input type='text' placeholder='Digite o nome da receita!' className='bg-gray-100 px-4 py-3 flex-auto focus:outline-none text-lg' onChange={(e)=>{setDadoBusca(e.target.value)}} onKeyDown={enviarPesquisa}/>
+                    <input type='text' placeholder='Digite o nome da receita! (Inicie com letra maiúscula)' className='bg-gray-100 px-4 py-3 flex-auto focus:outline-none text-lg' onChange={(e)=>{setDadoBusca(e.target.value)}} onKeyDown={enviarPesquisa}/>
                     <FiSearch className='text-2xl cursor-pointer' onClick={enviarPesquisa}/>
                 </div>
             </div>
